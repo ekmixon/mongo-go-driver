@@ -8,7 +8,7 @@ import sys
 if sys.version_info[:2] < (3, 7):
     print('ERROR: This script requires Python >= 3.7, not:')
     print(sys.version)
-    print('Usage: python3 %s' % (sys.argv[0]))
+    print(f'Usage: python3 {sys.argv[0]}')
     exit(1)
 
 
@@ -24,7 +24,7 @@ def template(filename):
 
 
 def write_test(filename, data):
-    fullpath = os.path.join(DIR, filename + '.yml')
+    fullpath = os.path.join(DIR, f'{filename}.yml')
     with open(fullpath, 'w') as f:
         f.write(data)
 

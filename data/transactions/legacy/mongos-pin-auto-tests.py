@@ -330,11 +330,15 @@ def create_unpin_test(op_name, error_name):
         op_name = 'bulkWrite'
     return TEMPLATE.format(**locals())
 
-tests = []
-for op_name, error_name in itertools.product(OPS, NON_TRANSIENT_ERRORS):
-    tests.append(create_pin_test(op_name, error_name))
-for op_name, error_name in itertools.product(OPS, TRANSIENT_ERRORS):
-    tests.append(create_unpin_test(op_name, error_name))
+tests = [
+    create_pin_test(op_name, error_name)
+    for op_name, error_name in itertools.product(OPS, NON_TRANSIENT_ERRORS)
+]
+
+tests.extend(
+    create_unpin_test(op_name, error_name)
+    for op_name, error_name in itertools.product(OPS, TRANSIENT_ERRORS)
+)
 
 print(HEADER)
 print(''.join(tests))
